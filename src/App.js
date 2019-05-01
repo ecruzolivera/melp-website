@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from "react"
+import Grid from "@material-ui/core/Grid"
+import CircularProgress from "@material-ui/core/CircularProgress"
+import CssBaseline from "@material-ui/core/CssBaseline"
+
+import TopAppBar from './components/TopAppBar'
+import { withStyles } from "@material-ui/core/styles"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Fragment>
+      <CssBaseline />
+      <TopAppBar onChange={console.log} />
+      <Grid
+        container
+        alignContent='center'
+        justify='center'
+        alignItems='center'
+      >
+        <CircularProgress />
+      </Grid>
+    </Fragment>
+  )
 }
 
-export default App;
+export default App
