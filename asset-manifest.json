@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/melp-website/static/js/main.712defe2.chunk.js",
+    "main.js.map": "/melp-website/static/js/main.712defe2.chunk.js.map",
+    "runtime~main.js": "/melp-website/static/js/runtime~main.62ae8cb2.js",
+    "runtime~main.js.map": "/melp-website/static/js/runtime~main.62ae8cb2.js.map",
+    "static/js/2.fc007088.chunk.js": "/melp-website/static/js/2.fc007088.chunk.js",
+    "static/js/2.fc007088.chunk.js.map": "/melp-website/static/js/2.fc007088.chunk.js.map",
+    "index.html": "/melp-website/index.html",
+    "precache-manifest.7c53f308703d042736826aa85c3b7ddf.js": "/melp-website/precache-manifest.7c53f308703d042736826aa85c3b7ddf.js",
+    "service-worker.js": "/melp-website/service-worker.js"
+  }
+}
