@@ -40,7 +40,7 @@ function App() {
       >
         {data ? (
           <Grid key={data[0].id} item>
-            <PlaceCard {...data[0]} />
+            <PlaceCard {...data[0]} img='http://lorempixel.com/200/200/food/' />
           </Grid>
         ) : (
           <CircularProgress />

@@ -11,22 +11,23 @@ import { withStyles } from "@material-ui/core/styles"
 const styles = theme => ({
   card: {
     maxWidth: "600px",
-    display:'flex',
-    alignItems:'center'
-
+    display: "flex",
+    alignItems: "center"
   },
-  cardMedia:{
-    width: '200px',
-    height:'200px',
-    borderRadius:'4px'
+  cardMedia: {
+    width: "200px",
+    height: "200px",
+    borderRadius: "4px",
+    marginLeft: "10px"
   }
 })
 
-const PlaceCard = ({ name, contact, address, rating, classes }) => (
+const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
   <Card raised className={classes.card}>
-    <CardMedia className={classes.cardMedia}
+    <CardMedia
+      className={classes.cardMedia}
       component='img'
-      image='http://lorempixel.com/200/200/food/'
+      image={img}
       title={`${name}`}
     />
     <div>
