@@ -9,6 +9,8 @@ import { withStyles } from '@material-ui/core/styles'
 import PhoneIcon from '@material-ui/icons/Phone'
 import EmailIcon from '@material-ui/icons/Email'
 import ExitToApp from '@material-ui/icons/ExitToApp'
+import StarIcon from '@material-ui/icons/Star'
+import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Rating from 'material-ui-rating'
 
 const styles = theme => ({
@@ -41,14 +43,14 @@ const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
       title={`${name}`}
     />
     <CardContent>
-      <CardContent>
-        <Typography variant='h5'>{name}</Typography>
-        <Rating
-          value={rating}
-          max={4}
-          readOnly={true}
-        />
-      </CardContent>
+      <Typography variant='h5'>{name}</Typography>
+      <Rating
+        value={rating}
+        max={4}
+        readOnly={true}
+        iconFilled={<StarIcon />}
+        iconNormal={<StarBorderIcon />}
+      />
       <Typography variant='body1' align='right'>
         {address.street}
       </Typography>
