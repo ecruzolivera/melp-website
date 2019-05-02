@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   bottomNavHandler = (event, value) => {
-    console.log(value)
     if (value === 'Next' && this.state.currentPage < this.state.maxPage) {
       this.setState(prevState => ({
         currentPage: prevState.currentPage + 1,
@@ -68,7 +67,6 @@ class App extends Component {
       (currentPage - 1) * itemsPerPage,
       (currentPage - 1) * itemsPerPage + itemsPerPage,
     )
-    console.log(currentPage)
     return (
       <Fragment>
         <CssBaseline />
@@ -90,11 +88,13 @@ class App extends Component {
               <CircularProgress className={classes.placeItem} />
             )}
           </main>
-          <BottomNav
-            currentValue={currentPage}
-            maxValue={maxPage}
-            onChange={this.bottomNavHandler}
-          />
+          {dataToRender && dataToRender.length > 0 && (
+            <BottomNav
+              currentValue={currentPage}
+              maxValue={maxPage}
+              onChange={this.bottomNavHandler}
+            />
+          )}
         </div>
       </Fragment>
     )
