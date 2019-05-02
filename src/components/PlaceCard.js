@@ -15,15 +15,18 @@ import Rating from 'material-ui-rating'
 
 const styles = theme => ({
   card: {
-    maxWidth: '600px',
+    width: '500px',
     display: 'flex',
     alignItems: 'center',
   },
   cardMedia: {
     width: '200px',
     height: '200px',
-    borderRadius: '4px',
+    borderRadius: theme.shape.borderRadius,
     marginLeft: theme.spacing.unit,
+  },
+  CardContent:{
+    flexGrow:1,
   },
   contact: {
     display: 'flex',
@@ -42,7 +45,7 @@ const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
       image={img}
       title={`${name}`}
     />
-    <CardContent>
+    <CardContent className={classes.CardContent}>
       <Typography variant='h5'>{name}</Typography>
       <Rating
         value={rating}
@@ -51,22 +54,20 @@ const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
         iconFilled={<StarIcon />}
         iconNormal={<StarBorderIcon />}
       />
-      <Typography variant='body1' align='right'>
-        {address.street}
-      </Typography>
-      <Typography variant='body1' align='right'>
-        {address.city}
-      </Typography>
-      <Typography variant='body1' align='right'>
-        {address.state}
-      </Typography>
+      <div className={classes.address}>
+        <Typography variant='body1' align='right'>
+          {address.street}
+        </Typography>
+        <Typography variant='body1' align='right'>
+          {address.city}
+        </Typography>
+        <Typography variant='body1' align='right'>
+          {address.state}
+        </Typography>
+      </div>
       <div className={classes.contact}>
         <PhoneIcon className={classes.icon} />
-        <Link
-          href={`tel:${contact.phone}`}
-          variant='body1'
-          color='textPrimary'
-        >
+        <Link href={`tel:${contact.phone}`} variant='body1' color='textPrimary'>
           {contact.phone}
         </Link>
       </div>
