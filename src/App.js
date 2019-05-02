@@ -1,12 +1,24 @@
-import React, { Component, Fragment } from 'react'
-import Grid from '@material-ui/core/Grid'
+import React, { Fragment } from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CssBaseline from '@material-ui/core/CssBaseline'
-
 import TopAppBar from './components/TopAppBar'
 import PlaceCard from './components/PlaceCard'
 
 import { withStyles } from '@material-ui/core/styles'
+
+const styles = theme => ({
+  placeList: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'center',
+  },
+  placeItem: {
+    margin: theme.spacing.unit,
+    marginLeft:'auto',
+    marginRight:'auto',
+  },
+})
 
 const data = [
   {
@@ -75,32 +87,30 @@ const data = [
   },
 ]
 
-function App() {
+function App({ classes }) {
   return (
     <Fragment>
       <CssBaseline />
       <TopAppBar onChange={console.log} />
-      <Grid
-        container
-        alignContent='center'
-        justify='center'
-        alignItems='center'
-      >
+      <div className={classes.placeList}>
         {data ? (
           data.map(item => (
-            <Grid key={item.id} item>
+            <div className={classes.placeItem}> 
               <PlaceCard
+                key={item.id}
                 {...item}
-                img={`http://lorempixel.com/200/200/food/${Math.floor(Math.random()*data.length)+1}`}
+                img={`http://lorempixel.com/200/200/food/${Math.floor(
+                  Math.random() * data.length,
+                ) + 1}`}
               />
-            </Grid>
+            </div>
           ))
         ) : (
           <CircularProgress />
         )}
-      </Grid>
+      </div>
     </Fragment>
   )
 }
 
-export default App
+export default withStyles(styles)(App)
