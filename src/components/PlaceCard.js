@@ -62,7 +62,13 @@ const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
       </Typography>
       <div className={classes.contact}>
         <PhoneIcon className={classes.icon} />
-        <Typography variant='body1'>{contact.phone}</Typography>
+        <Link
+          href={`tel:${contact.phone}`}
+          variant='body1'
+          color='textPrimary'
+        >
+          {contact.phone}
+        </Link>
       </div>
       <div className={classes.contact}>
         <EmailIcon className={classes.icon} />
