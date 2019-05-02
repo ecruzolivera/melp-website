@@ -31,33 +31,57 @@ const styles = theme => ({
 class App extends Component {
   state = {
     data: [],
+    currentPage: 1,
+    itemsPerPage: 10,
+    maxPage: null,
   }
 
   async componentDidMount() {
     let data = []
     try {
-      data = await DataFetcher(1)
+      data = await DataFetcher()
     } catch (error) {
       console.error(error)
     }
-    this.setState({ data: data })
+    const maxPage = data.length / this.state.itemsPerPage
+
+    this.setState({ data: data, maxPage: maxPage })
   }
+
+  bottomNavHandler = (event, value) => {
+    console.log(value)
+    if (value === 'Next' && this.state.currentPage < this.state.maxPage) {
+      this.setState(prevState => ({
+        currentPage: prevState.currentPage + 1,
+      }))
+    } else if (value === 'Previous' && this.state.currentPage > 1) {
+      this.setState(prevState => ({
+        currentPage: prevState.currentPage - 1,
+      }))
+    }
+  }
+
   render() {
     const { classes } = this.props
-    const { data } = this.state
+    const { data, currentPage, itemsPerPage, maxPage } = this.state
+    const dataToRender = data.slice(
+      (currentPage - 1) * itemsPerPage,
+      (currentPage - 1) * itemsPerPage + itemsPerPage,
+    )
+    console.log(currentPage)
     return (
       <Fragment>
         <CssBaseline />
         <div className={classes.root}>
           <TopAppBar onChange={console.log} />
-          <div className={classes.placeList}>
-            {data && data.length > 0 ? (
-              data.map(item => (
+          <main className={classes.placeList}>
+            {dataToRender && dataToRender.length > 0 ? (
+              dataToRender.map(item => (
                 <div key={item.id} className={classes.placeItem}>
                   <PlaceCard
                     {...item}
                     img={`http://lorempixel.com/200/200/food/${Math.floor(
-                      Math.random() * data.length,
+                      Math.random() * dataToRender.length,
                     ) + 1}`}
                   />
                 </div>
@@ -65,11 +89,11 @@ class App extends Component {
             ) : (
               <CircularProgress className={classes.placeItem} />
             )}
-          </div>
+          </main>
           <BottomNav
-            currentValue={1}
-            maxValue={5}
-            onChange={(event, value) => console.log(value)}
+            currentValue={currentPage}
+            maxValue={maxPage}
+            onChange={this.bottomNavHandler}
           />
         </div>
       </Fragment>
