@@ -41,7 +41,7 @@ const styles = theme => ({
     top: '0px',
     [theme.breakpoints.down('sm')]: {
       position: 'static',
-      marginBottom:theme.spacing.unit * 2,
+      marginBottom: theme.spacing.unit * 2,
     },
   },
   filtersBar: {},
@@ -100,9 +100,11 @@ class App extends Component {
   }
 
   itemsPerPageHandler = value => {
-    const { itemsPerPage } = this.state
+    if (value < 1) {
+      return
+    }
     const dataLength = this.state.data.length
-    const maxPage = Math.ceil(dataLength / itemsPerPage)
+    const maxPage = Math.ceil(dataLength / value)
 
     this.setState({
       itemsPerPage: value,
