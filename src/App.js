@@ -110,7 +110,6 @@ class App extends Component {
       name: item.name,
       ...item.address.location,
     }))
-    console.log(`marker: ${markers}`)
     return (
       <Fragment>
         <CssBaseline />
