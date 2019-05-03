@@ -12,8 +12,16 @@ const styles = theme => ({
   },
 })
 
-const MapBox = ({ markers}) => {
-  const center = (markers[0] && [markers[0].lat, markers[0].lng]) || [0, 0]
+const MapBox = ({ markers }) => {
+  //calculating centroid
+  let center = markers.reduce(
+    (acc, current) => ({
+      lat: acc.lat + current.lat,
+      lng: acc.lng + current.lng,
+    }),
+    { id: '', lat: 0, lng: 0 },
+  )
+  center = [center.lat / markers.length, center.lng / markers.length]
   return (
     <Map center={center} zoom={15}>
       <TileLayer
@@ -21,16 +29,16 @@ const MapBox = ({ markers}) => {
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
       />
       {markers.map(marker => (
-        <Marker key={marker.id} position={[marker.lat, marker.lng]} />
+        <Marker key={marker.id} position={[marker.lat, marker.lng]}>
+          <Popup>{marker.name}</Popup>
+        </Marker>
       ))}
     </Map>
   )
 }
 
 MapBox.propTypes = {
-  center: PropTypes.array.isRequired,
   markers: PropTypes.arrayOf(PropTypes.array),
-  zoom: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

@@ -107,9 +107,10 @@ class App extends Component {
 
     const markers = dataToRender.map(item => ({
       id: item.id,
+      name: item.name,
       ...item.address.location,
     }))
-
+    console.log(`marker: ${markers}`)
     return (
       <Fragment>
         <CssBaseline />
@@ -124,12 +125,11 @@ class App extends Component {
               />
               <div className={classes.placeList}>
                 {dataToRender && dataToRender.length > 0 ? (
-                  dataToRender.map(item => (
+                  dataToRender.map((item, index) => (
                     <div key={item.id} className={classes.placeItem}>
                       <PlaceCard
                         {...item}
-                        img={`http://lorempixel.com/200/200/food/
-                        ${Math.floor(Math.random() * dataToRender.length) + 1}`}
+                        img={`http://lorempixel.com/200/200/food/${index}`}
                       />
                     </div>
                   ))
@@ -146,9 +146,11 @@ class App extends Component {
               )}
             </div>
             <div className={classes.rightPanel}>
-              <div className={classes.map}>
-                <MapBox markers={markers}/>
-              </div>
+              {markers && markers.length > 0 && (
+                <div className={classes.map}>
+                  <MapBox markers={markers} />
+                </div>
+              )}
             </div>
           </main>
         </div>
