@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import Paper from '@material-ui/core/Paper'
+import TextField from '@material-ui/core/TextField'
 
 const styles = theme => ({
   root: {
@@ -15,11 +16,8 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  listItem: {
-    display: 'flex',
-    alignContent: 'center',
-    justifyContent: 'center',
-    alignItems: 'baseline',
+  itemsPerPage: {
+    width: '4rem',
   },
   listItem__primary: {
     marginRight: theme.spacing.unit,
@@ -30,6 +28,7 @@ class FiltersBar extends React.Component {
   state = {
     anchorEl: null,
     selectedIndex: 0,
+    itemsToShow: 10,
   }
 
   handleClickListItem = event => {
@@ -38,8 +37,8 @@ class FiltersBar extends React.Component {
 
   handleMenuItemClick = (event, index) => {
     this.setState({ selectedIndex: index, anchorEl: null })
-    const { onChange, options } = this.props
-    onChange(options[index])
+    const { onSortChange, options } = this.props
+    onSortChange(options[index])
   }
 
   handleClose = () => {
@@ -47,7 +46,7 @@ class FiltersBar extends React.Component {
   }
 
   render() {
-    const { options, classes } = this.props
+    const { itemsPerPage, onItemsPerPageChange, options, classes } = this.props
     const { anchorEl } = this.state
 
     return (
@@ -84,6 +83,18 @@ class FiltersBar extends React.Component {
             </MenuItem>
           ))}
         </Menu>
+        <TextField
+          id='standard-number'
+          label='Show:'
+          value={itemsPerPage}
+          onChange={e => onItemsPerPageChange(e.target.value)}
+          type='number'
+          className={classes.itemsPerPage}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          margin='dense'
+        />
       </Paper>
     )
   }
@@ -91,7 +102,8 @@ class FiltersBar extends React.Component {
 
 FiltersBar.propTypes = {
   sortOptions: PropTypes.arrayOf(PropTypes.string),
-  onChange: PropTypes.func.isRequired,
+  onSortChange: PropTypes.func.isRequired,
+  onItemsPerPageChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 }
 

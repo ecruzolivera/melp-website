@@ -68,7 +68,7 @@ class App extends Component {
     } catch (error) {
       console.error(error)
     }
-    const maxPage = data.length / this.state.itemsPerPage
+    const maxPage = Math.ceil(data.length / this.state.itemsPerPage)
 
     this.setState({ data: data, maxPage: maxPage })
   }
@@ -85,9 +85,20 @@ class App extends Component {
     }
   }
 
-  filtersBarHandler = value => {
+  sortItemsHandler = value => {
     this.setState({
       sortedBy: value,
+    })
+  }
+
+  itemsPerPageHandler = value => {
+    const { itemsPerPage } = this.state
+    const dataLength = this.state.data.length
+    const maxPage = Math.ceil(dataLength / itemsPerPage)
+
+    this.setState({
+      itemsPerPage: value,
+      maxPage: maxPage,
     })
   }
 
@@ -99,17 +110,16 @@ class App extends Component {
     } else {
       data.sort((a, b) => a.rating < b.rating)
     }
-
     const dataToRender = data.slice(
       (currentPage - 1) * itemsPerPage,
       (currentPage - 1) * itemsPerPage + itemsPerPage,
     )
-
     const markers = dataToRender.map(item => ({
       id: item.id,
       name: item.name,
       ...item.address.location,
     }))
+
     return (
       <Fragment>
         <CssBaseline />
@@ -119,7 +129,9 @@ class App extends Component {
           <main className={classes.main}>
             <div className={classes.leftPanel}>
               <FiltersBar
-                onChange={this.filtersBarHandler}
+                onSortChange={this.sortItemsHandler}
+                onItemsPerPageChange={this.itemsPerPageHandler}
+                itemsPerPage={itemsPerPage}
                 options={SortingOptions}
               />
               <div className={classes.placeList}>
