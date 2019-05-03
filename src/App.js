@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { Helmet } from 'react-helmet'
+
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
@@ -88,6 +90,14 @@ class App extends Component {
     return (
       <Fragment>
         <CssBaseline />
+        <Helmet>
+          <meta charSet='utf-8' />
+          <title>Melp</title>
+          <link
+            rel='stylesheet'
+            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'
+          />
+        </Helmet>
         <div className={classes.root}>
           <TopAppBar onChange={console.log} />
           <FiltersBar

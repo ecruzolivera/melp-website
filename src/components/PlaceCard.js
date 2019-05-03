@@ -25,12 +25,17 @@ const styles = theme => ({
     borderRadius: theme.shape.borderRadius,
     marginLeft: theme.spacing.unit,
   },
-  CardContent:{
-    flexGrow:1,
+  cardContent: {
+    flexGrow: 1,
   },
   contact: {
     display: 'flex',
     alignItems: 'center',
+  },
+  social: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   icon: {
     marginRight: theme.spacing.unit,
@@ -45,15 +50,23 @@ const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
       image={img}
       title={`${name}`}
     />
-    <CardContent className={classes.CardContent}>
+    <CardContent className={classes.cardContent}>
       <Typography variant='h5'>{name}</Typography>
-      <Rating
-        value={rating}
-        max={4}
-        readOnly={true}
-        iconFilled={<StarIcon />}
-        iconNormal={<StarBorderIcon />}
-      />
+      <div className={classes.social}>
+        <Rating
+          value={rating}
+          max={4}
+          readOnly={true}
+          iconFilled={<StarIcon />}
+          iconNormal={<StarBorderIcon />}
+        />
+        <div className={classes.icon}
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://www.facebook.com/plugins/share_button.php?href=${`https://manjaro.org/`}%2F&layout=button_count&size=small&width=73&height=20&appId" width="73" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>`
+          }}
+        />
+      </div>
+
       <div className={classes.address}>
         <Typography variant='body1' align='right'>
           {address.street}
