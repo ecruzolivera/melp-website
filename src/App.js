@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from 'react'
-import { Helmet } from 'react-helmet'
-
 import CircularProgress from '@material-ui/core/CircularProgress'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { withStyles } from '@material-ui/core/styles'
 
 import TopAppBar from './components/TopAppBar'
 import PlaceCard from './components/PlaceCard'
 import BottomNav from './components/BottomNav'
 import FiltersBar from './components/FiltersBar'
-import { withStyles } from '@material-ui/core/styles'
+import Seo from './components/Seo'
+
 import DataFetcher from './services/DataFetcher'
 
 const styles = theme => ({
@@ -90,14 +90,7 @@ class App extends Component {
     return (
       <Fragment>
         <CssBaseline />
-        <Helmet>
-          <meta charSet='utf-8' />
-          <title>Melp</title>
-          <link
-            rel='stylesheet'
-            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500'
-          />
-        </Helmet>
+        <Seo />
         <div className={classes.root}>
           <TopAppBar onChange={console.log} />
           <FiltersBar
