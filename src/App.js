@@ -8,6 +8,7 @@ import PlaceCard from './components/PlaceCard'
 import BottomNav from './components/BottomNav'
 import FiltersBar from './components/FiltersBar'
 import Seo from './components/Seo'
+import MapBox from './components/MapBox'
 
 import DataFetcher from './services/DataFetcher'
 
@@ -18,13 +19,29 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     minHeight: '100vh',
   },
+  main: {
+    display: 'flex',
+  },
+  leftPanel: {
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+  },
+  rightPanel: {
+    minHeight: '400px',
+    width: '400px',
+    margin: '0 auto',
+    flexGrow: 1,
+  },
+  map: {
+    position: 'sticky',
+    top: '0px',
+  },
   filtersBar: {},
   placeList: {
     display: 'flex',
     flexDirection: 'column',
     alignContent: 'center',
     justifyContent: 'flex-start',
-    flexGrow: 1,
   },
   placeItem: {
     margin: theme.spacing.unit,
@@ -93,33 +110,42 @@ class App extends Component {
         <Seo />
         <div className={classes.root}>
           <TopAppBar onChange={console.log} />
-          <FiltersBar
-            onChange={this.filtersBarHandler}
-            options={SortingOptions}
-          />
-          <main className={classes.placeList}>
-            {dataToRender && dataToRender.length > 0 ? (
-              dataToRender.map(item => (
-                <div key={item.id} className={classes.placeItem}>
-                  <PlaceCard
-                    {...item}
-                    img={`http://lorempixel.com/200/200/food/${Math.floor(
-                      Math.random() * dataToRender.length,
-                    ) + 1}`}
-                  />
-                </div>
-              ))
-            ) : (
-              <CircularProgress className={classes.placeItem} />
-            )}
+          <main className={classes.main}>
+            <div className={classes.leftPanel}>
+              <FiltersBar
+                onChange={this.filtersBarHandler}
+                options={SortingOptions}
+              />
+              <div className={classes.placeList}>
+                {dataToRender && dataToRender.length > 0 ? (
+                  dataToRender.map(item => (
+                    <div key={item.id} className={classes.placeItem}>
+                      <PlaceCard
+                        {...item}
+                        img={`http://lorempixel.com/200/200/food/${Math.floor(
+                          Math.random() * dataToRender.length,
+                        ) + 1}`}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <CircularProgress className={classes.placeItem} />
+                )}
+              </div>
+              {dataToRender && dataToRender.length > 0 && (
+                <BottomNav
+                  currentValue={currentPage}
+                  maxValue={maxPage}
+                  onChange={this.bottomNavHandler}
+                />
+              )}
+            </div>
+            <div className={classes.rightPanel}>
+              <div className={classes.map}>
+                <MapBox />
+              </div>
+            </div>
           </main>
-          {dataToRender && dataToRender.length > 0 && (
-            <BottomNav
-              currentValue={currentPage}
-              maxValue={maxPage}
-              onChange={this.bottomNavHandler}
-            />
-          )}
         </div>
       </Fragment>
     )

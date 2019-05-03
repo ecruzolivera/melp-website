@@ -23,9 +23,7 @@ const BottomNav = ({ currentValue, maxValue, onChange, classes }) => (
       value='Previous'
       icon={<KeyboardArrowLeft />}
     />
-    <Typography variant='body1' align='right'>
-      {`${currentValue} - ${maxValue}`}
-    </Typography>
+    <Typography variant='body1'>{`${currentValue} - ${maxValue}`}</Typography>
     <BottomNavigationAction
       label='Next'
       value='Next'

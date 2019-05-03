@@ -72,13 +72,7 @@ const TopAppBar = props => {
     <div className={classes.root}>
       <AppBar position='sticky'>
         <Toolbar>
-          {/* <IconButton
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='Open drawer'
-          >
-            <MenuIcon />
-          </IconButton> */}
+          
           <Typography className={classes.title} variant='h6' color='inherit'>
             Melp
           </Typography>
