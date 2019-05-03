@@ -104,6 +104,12 @@ class App extends Component {
       (currentPage - 1) * itemsPerPage,
       (currentPage - 1) * itemsPerPage + itemsPerPage,
     )
+
+    const markers = dataToRender.map(item => ({
+      id: item.id,
+      ...item.address.location,
+    }))
+
     return (
       <Fragment>
         <CssBaseline />
@@ -122,9 +128,8 @@ class App extends Component {
                     <div key={item.id} className={classes.placeItem}>
                       <PlaceCard
                         {...item}
-                        img={`http://lorempixel.com/200/200/food/${Math.floor(
-                          Math.random() * dataToRender.length,
-                        ) + 1}`}
+                        img={`http://lorempixel.com/200/200/food/
+                        ${Math.floor(Math.random() * dataToRender.length) + 1}`}
                       />
                     </div>
                   ))
@@ -142,7 +147,7 @@ class App extends Component {
             </div>
             <div className={classes.rightPanel}>
               <div className={classes.map}>
-                <MapBox />
+                <MapBox markers={markers}/>
               </div>
             </div>
           </main>
