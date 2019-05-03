@@ -21,6 +21,10 @@ const styles = theme => ({
   },
   main: {
     display: 'flex',
+    flexDirection: 'row',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   leftPanel: {
     marginLeft: theme.spacing.unit * 2,
@@ -35,6 +39,10 @@ const styles = theme => ({
   map: {
     position: 'sticky',
     top: '0px',
+    [theme.breakpoints.down('sm')]: {
+      position: 'static',
+      marginBottom:theme.spacing.unit * 2,
+    },
   },
   filtersBar: {},
   placeList: {
@@ -159,7 +167,7 @@ class App extends Component {
             <div className={classes.rightPanel}>
               {markers && markers.length > 0 && (
                 <div className={classes.map}>
-                  <MapBox markers={markers} />
+                  <MapBox markers={markers} className={classes.map} />
                 </div>
               )}
             </div>
