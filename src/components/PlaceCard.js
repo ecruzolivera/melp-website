@@ -12,6 +12,11 @@ import ExitToApp from '@material-ui/icons/ExitToApp'
 import StarIcon from '@material-ui/icons/Star'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import Rating from 'material-ui-rating'
+import {
+  FacebookShareButton,
+  FacebookShareCount,
+  FacebookIcon,
+} from 'react-share'
 
 const styles = theme => ({
   card: {
@@ -37,6 +42,18 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  facebookButton: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#3b5998',
+    borderRadius:theme.shape.borderRadius,
+    paddingRight: theme.spacing.unit,
+    color: '#fff',
+    '&:hover': {
+      opacity: 0.8,
+      cursor:'pointer'
+    },
+  },
   icon: {
     marginRight: theme.spacing.unit,
   },
@@ -60,11 +77,17 @@ const PlaceCard = ({ name, contact, address, rating, img, classes }) => (
           iconFilled={<StarIcon />}
           iconNormal={<StarBorderIcon />}
         />
-        <div className={classes.icon}
-          dangerouslySetInnerHTML={{
-            __html: `<iframe src="https://www.facebook.com/plugins/share_button.php?href=${`https://manjaro.org/`}%2F&layout=button_count&size=small&width=73&height=20&appId" width="73" height="20" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>`
-          }}
-        />
+        <FacebookShareButton
+          url={contact.site.toLowerCase()}
+          className={classes.facebookButton}
+        >
+          <FacebookIcon size={24} round />
+          <FacebookShareCount url={contact.site.toLowerCase()}>
+            {shareCount => (
+              <Typography variant='body1' color='inherit'>{`Share ${shareCount}`}</Typography>
+            )}
+          </FacebookShareCount>
+        </FacebookShareButton>
       </div>
 
       <div className={classes.address}>
